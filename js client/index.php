@@ -16,49 +16,34 @@
 	<script type="text/javascript" src = "js/plugin/EdkDll.js"></script>
 	<script type="text/javascript" src = "js/plugin/EmoState.js"></script>
 	<script type="text/javascript" src = "js/plugin/EmoEngine.js"></script>
-	
+	<script src="js/jquery-1.10.1.min.js" type="text/javascript"></script>
+
+	<script type="text/javascript" src="js/page/Calibration.js"></script>
+
 	<script type="text/javascript">
 	var test1 = function(){
 		var engine = EmoEngine.instance();
 		var es = new EmoState();
-	
+
 		EdkDll.EE_EngineGetNextEvent(); //Get next Events of EPOC
 		es.ES_GetContactQualityFromAllChannels();//Get value of Contact Quality
-		engine.CognitivGetActionsEnabled(0); //return cognitiv actions enabled
-		
-		// Works!!
-		//$("body").append(engine.CognitivGetActionsEnabled(0));
-		//$("body").append("<br>");
-		//$("body").append(EdkDll.EE_EmoEngineEventGetUserId());
-/*		if(EdkDll.EE_HeadsetGetGyroDelta(EdkDll.EE_EmoEngineEventGetUserId()).pXOut > 20 || EdkDll.EE_HeadsetGetGyroDelta(EdkDll.EE_EmoEngineEventGetUserId()).pYOut > 20){
-			//$("body").append(EdkDll.EE_HeadsetGetGyroDelta(EdkDll.EE_EmoEngineEventGetUserId()));
-			$("body").append("You're nodding!");
-			$("body").append("<br>");	
-		}
-*/
 
+		// if(EdkDll.EE_HeadsetGetGyroDelta(EdkDll.EE_EmoEngineEventGetUserId()).pXOut > 20 || EdkDll.EE_HeadsetGetGyroDelta(EdkDll.EE_EmoEngineEventGetUserId()).pYOut > 20){
+		// 	$("blink-log").append("You're nodding!");
+		// }
 
 		if(EdkDll.ES_ExpressivIsBlink()){
-			//$("body").append(EdkDll.EE_HeadsetGetGyroDelta(EdkDll.EE_EmoEngineEventGetUserId()));
-			$("body").append("You're blinking!");
-			$("body").append("<br>");
+			$("blink-log").append("<div class='on data'></div>");
+		} else {
+			$("blink-log").append("<div class='off data'></div>");
 		}
 
-		
-		//console.log(EdkDll.EE_HeadsetGetGyroDelta(EdkDll.EE_EmoEngineEventGetUserId()));
+		setTimeout(test1,500);
 
-		console.log(EdkDll.ES_ExpressivIsBlink());
-
-		setTimeout(test1,100);
-	
 	};
-	
-			
+
+
 	</script>
-
-	<script src="js/jquery-1.10.1.min.js" type="text/javascript"></script>
-
-	<script type="text/javascript" src="js/page/Calibration.js"></script>
 
     <script type="text/javascript">
 	function ELSPlugin()
@@ -136,10 +121,10 @@
 	var isConnected;
 	var engine = EmoEngine.instance();
 	var userIdProfile = 0;
-	
+
 	//test1
 	test1();
-	
+
 	function init()
 	{
 		//for debug EdkDll function
@@ -216,6 +201,9 @@
 </head>
 
 <body>
+
+	<div class = "blink-log">
+	</div>
 
 	 <div class="bottom_content">
 		<input type="submit" name="strRecording" id="strRecording" value="Start Recording" onclick="strRecord();"/>
